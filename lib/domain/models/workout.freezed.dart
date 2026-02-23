@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Workout {
 
- int get id; String get name; List<Exercise> get exercises; String? get img;
+ int get id; String get name; List<Exercise> get exercises; bool get isFavorite; String? get img;
 /// Create a copy of Workout
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $WorkoutCopyWith<Workout> get copyWith => _$WorkoutCopyWithImpl<Workout>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Workout&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.exercises, exercises)&&(identical(other.img, img) || other.img == img));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Workout&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other.exercises, exercises)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite)&&(identical(other.img, img) || other.img == img));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(exercises),img);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(exercises),isFavorite,img);
 
 @override
 String toString() {
-  return 'Workout(id: $id, name: $name, exercises: $exercises, img: $img)';
+  return 'Workout(id: $id, name: $name, exercises: $exercises, isFavorite: $isFavorite, img: $img)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $WorkoutCopyWith<$Res>  {
   factory $WorkoutCopyWith(Workout value, $Res Function(Workout) _then) = _$WorkoutCopyWithImpl;
 @useResult
 $Res call({
- int id, String name, List<Exercise> exercises, String? img
+ int id, String name, List<Exercise> exercises, bool isFavorite, String? img
 });
 
 
@@ -65,12 +65,13 @@ class _$WorkoutCopyWithImpl<$Res>
 
 /// Create a copy of Workout
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? exercises = null,Object? img = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? name = null,Object? exercises = null,Object? isFavorite = null,Object? img = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,exercises: null == exercises ? _self.exercises : exercises // ignore: cast_nullable_to_non_nullable
-as List<Exercise>,img: freezed == img ? _self.img : img // ignore: cast_nullable_to_non_nullable
+as List<Exercise>,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,img: freezed == img ? _self.img : img // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }
@@ -156,10 +157,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<Exercise> exercises,  String? img)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( int id,  String name,  List<Exercise> exercises,  bool isFavorite,  String? img)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Workout() when $default != null:
-return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
+return $default(_that.id,_that.name,_that.exercises,_that.isFavorite,_that.img);case _:
   return orElse();
 
 }
@@ -177,10 +178,10 @@ return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<Exercise> exercises,  String? img)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( int id,  String name,  List<Exercise> exercises,  bool isFavorite,  String? img)  $default,) {final _that = this;
 switch (_that) {
 case _Workout():
-return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
+return $default(_that.id,_that.name,_that.exercises,_that.isFavorite,_that.img);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -197,10 +198,10 @@ return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<Exercise> exercises,  String? img)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( int id,  String name,  List<Exercise> exercises,  bool isFavorite,  String? img)?  $default,) {final _that = this;
 switch (_that) {
 case _Workout() when $default != null:
-return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
+return $default(_that.id,_that.name,_that.exercises,_that.isFavorite,_that.img);case _:
   return null;
 
 }
@@ -212,7 +213,7 @@ return $default(_that.id,_that.name,_that.exercises,_that.img);case _:
 @JsonSerializable()
 
 class _Workout implements Workout {
-  const _Workout({required this.id, required this.name, required final  List<Exercise> exercises, this.img}): _exercises = exercises;
+  const _Workout({required this.id, required this.name, required final  List<Exercise> exercises, this.isFavorite = false, this.img}): _exercises = exercises;
   factory _Workout.fromJson(Map<String, dynamic> json) => _$WorkoutFromJson(json);
 
 @override final  int id;
@@ -224,6 +225,7 @@ class _Workout implements Workout {
   return EqualUnmodifiableListView(_exercises);
 }
 
+@override@JsonKey() final  bool isFavorite;
 @override final  String? img;
 
 /// Create a copy of Workout
@@ -239,16 +241,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Workout&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._exercises, _exercises)&&(identical(other.img, img) || other.img == img));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Workout&&(identical(other.id, id) || other.id == id)&&(identical(other.name, name) || other.name == name)&&const DeepCollectionEquality().equals(other._exercises, _exercises)&&(identical(other.isFavorite, isFavorite) || other.isFavorite == isFavorite)&&(identical(other.img, img) || other.img == img));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_exercises),img);
+int get hashCode => Object.hash(runtimeType,id,name,const DeepCollectionEquality().hash(_exercises),isFavorite,img);
 
 @override
 String toString() {
-  return 'Workout(id: $id, name: $name, exercises: $exercises, img: $img)';
+  return 'Workout(id: $id, name: $name, exercises: $exercises, isFavorite: $isFavorite, img: $img)';
 }
 
 
@@ -259,7 +261,7 @@ abstract mixin class _$WorkoutCopyWith<$Res> implements $WorkoutCopyWith<$Res> {
   factory _$WorkoutCopyWith(_Workout value, $Res Function(_Workout) _then) = __$WorkoutCopyWithImpl;
 @override @useResult
 $Res call({
- int id, String name, List<Exercise> exercises, String? img
+ int id, String name, List<Exercise> exercises, bool isFavorite, String? img
 });
 
 
@@ -276,12 +278,13 @@ class __$WorkoutCopyWithImpl<$Res>
 
 /// Create a copy of Workout
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? exercises = null,Object? img = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? name = null,Object? exercises = null,Object? isFavorite = null,Object? img = freezed,}) {
   return _then(_Workout(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as int,name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
 as String,exercises: null == exercises ? _self._exercises : exercises // ignore: cast_nullable_to_non_nullable
-as List<Exercise>,img: freezed == img ? _self.img : img // ignore: cast_nullable_to_non_nullable
+as List<Exercise>,isFavorite: null == isFavorite ? _self.isFavorite : isFavorite // ignore: cast_nullable_to_non_nullable
+as bool,img: freezed == img ? _self.img : img // ignore: cast_nullable_to_non_nullable
 as String?,
   ));
 }

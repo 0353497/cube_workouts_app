@@ -12,6 +12,7 @@ _Workout _$WorkoutFromJson(Map<String, dynamic> json) => _Workout(
   exercises: (json['exercises'] as List<dynamic>)
       .map((e) => Exercise.fromJson(e as Map<String, dynamic>))
       .toList(),
+  isFavorite: json['isFavorite'] as bool? ?? false,
   img: json['img'] as String?,
 );
 
@@ -19,5 +20,6 @@ Map<String, dynamic> _$WorkoutToJson(_Workout instance) => <String, dynamic>{
   'id': instance.id,
   'name': instance.name,
   'exercises': instance.exercises,
+  'isFavorite': instance.isFavorite,
   'img': instance.img,
 };

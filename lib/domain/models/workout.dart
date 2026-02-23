@@ -10,9 +10,12 @@ abstract class Workout with _$Workout {
     required int id,
     required String name,
     required List<Exercise> exercises,
+    @Default(false) bool isFavorite,
     String? img,
   }) = _Workout;
 
   factory Workout.fromJson(Map<String, dynamic> json) =>
       _$WorkoutFromJson(json);
 }
+
+//dart run build_runner build --delete-conflicting-outputs
