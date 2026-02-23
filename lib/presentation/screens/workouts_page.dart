@@ -45,8 +45,14 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
                   );
                 },
                 trailing: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.favorite),
+                  onPressed: () {
+                    context.read<WorkoutBloc>().add(
+                      ToggleFavoriteWorkout(workout.id),
+                    );
+                  },
+                  icon: Icon(
+                    workout.isFavorite ? Icons.star : Icons.star_border,
+                  ),
                 ),
               );
             },
