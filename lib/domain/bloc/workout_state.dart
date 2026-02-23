@@ -12,6 +12,8 @@ class WorkoutLoaded extends WorkoutState {
   WorkoutLoaded(this.workouts);
 }
 
+class WorkoutEmpty extends WorkoutState {}
+
 class WorkoutError extends WorkoutState {
   final String message;
 

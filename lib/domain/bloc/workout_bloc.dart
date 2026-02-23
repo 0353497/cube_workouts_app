@@ -28,6 +28,10 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     emit(WorkoutLoading());
     try {
       final workouts = await _repository.getWorkouts();
+      if (workouts.isEmpty) {
+        emit(WorkoutEmpty());
+        return;
+      }
       emit(WorkoutLoaded(workouts));
     } catch (e) {
       emit(WorkoutError('Failed to load workouts: $e'));
@@ -41,6 +45,10 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     emit(WorkoutLoading());
     try {
       final workouts = await _repository.getFavoriteWorkouts();
+      if (workouts.isEmpty) {
+        emit(WorkoutEmpty());
+        return;
+      }
       emit(WorkoutLoaded(workouts));
     } catch (e) {
       emit(WorkoutError('Failed to load favorite workouts: $e'));
