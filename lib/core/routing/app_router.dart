@@ -1,4 +1,4 @@
-import 'package:cube_workouts/presentation/screens/wourkout_detail_page.dart';
+import 'package:cube_workouts/presentation/screens/workout_detail_page.dart';
 import 'package:cube_workouts/presentation/screens/favorite_page.dart';
 import 'package:cube_workouts/presentation/screens/workouts_page.dart';
 import 'package:cube_workouts/presentation/widgets/main_view.dart';
@@ -32,7 +32,7 @@ final GoRouter router = GoRouter(
       name: 'workoutDetail',
       builder: (context, state) {
         final workoutId = int.parse(state.pathParameters['workoutId']!);
-        return WourkoutDetailPage(workoutId: workoutId);
+        return WorkoutDetailPage(workoutId: workoutId);
       },
     ),
   ],
