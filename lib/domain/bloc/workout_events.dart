@@ -1,6 +1,6 @@
 import 'package:cube_workouts/domain/models/workout.dart';
 
-sealed class WorkoutEvent {
+abstract class WorkoutEvent {
   const WorkoutEvent();
 }
 

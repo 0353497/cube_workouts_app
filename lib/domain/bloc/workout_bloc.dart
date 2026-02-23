@@ -1,3 +1,4 @@
+import 'package:cube_workouts/domain/bloc/exercise_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
@@ -12,6 +13,9 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<WorkoutAdded>(_onWorkoutAdded);
     on<WorkoutUpdated>(_onWorkoutUpdated);
     on<WorkoutDeleted>(_onWorkoutDeleted);
+    on<ExerciseAdded>(_onExerciseAdded);
+    on<ExerciseUpdated>(_onExerciseUpdated);
+    on<ExerciseDeleted>(_onExerciseDeleted);
   }
 
   Future<void> _onWorkoutsRequested(
@@ -73,6 +77,42 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       add(const WorkoutsRequested());
     } catch (e) {
       emit(WorkoutError('Failed to delete workout: $e'));
+    }
+  }
+
+  Future<void> _onExerciseAdded(
+    ExerciseAdded event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      await _repository.addExercise(event.workoutId, event.exercise);
+      add(const WorkoutsRequested());
+    } catch (e) {
+      emit(WorkoutError('Failed to add exercise: $e'));
+    }
+  }
+
+  Future<void> _onExerciseUpdated(
+    ExerciseUpdated event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      await _repository.updateExercise(event.workoutId, event.exercise);
+      add(const WorkoutsRequested());
+    } catch (e) {
+      emit(WorkoutError('Failed to update exercise: $e'));
+    }
+  }
+
+  Future<void> _onExerciseDeleted(
+    ExerciseDeleted event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      await _repository.deleteExercise(event.workoutId, event.exerciseId);
+      add(const WorkoutsRequested());
+    } catch (e) {
+      emit(WorkoutError('Failed to delete exercise: $e'));
     }
   }
 }
