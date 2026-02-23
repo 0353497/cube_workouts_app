@@ -1,12 +1,24 @@
+import 'package:cube_workouts/data/initial_data/initial_data.dart';
+import 'package:cube_workouts/data/repositories/hive_adapter_registry.dart';
 import 'package:cube_workouts/domain/models/exercise.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
 import 'package:cube_workouts/domain/repositories/workout_repository.dart';
 import 'package:hive/hive.dart';
+import 'package:path_provider/path_provider.dart';
 
 class LocalWorkoutRepository implements WorkoutRepository {
   @override
-  Future<void> init() async {}
-  late final Box<List<Workout>> _workoutBox;
+  Future<void> init() async {
+    final path = await getApplicationDocumentsDirectory();
+    Hive.init(path.path);
+
+    registerWorkoutHiveAdapters();
+
+    _workoutBox = await Hive.openBox<Workout>('workouts');
+    if (_workoutBox.isEmpty) _workoutBox.addAll(initialData);
+  }
+
+  late final Box<Workout> _workoutBox;
 
   @override
   Future<void> addExercise(int workoutId, Exercise exercise) {
