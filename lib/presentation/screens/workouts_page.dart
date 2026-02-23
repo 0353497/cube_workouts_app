@@ -1,9 +1,9 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
+import 'package:cube_workouts/presentation/widgets/workout_list_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
 class WorkoutsPage extends StatefulWidget {
   const WorkoutsPage({super.key});
@@ -35,26 +35,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             itemCount: workouts.length,
             itemBuilder: (context, index) {
               final workout = workouts[index];
-              return ListTile(
-                title: Text(workout.name),
-                subtitle: Text('${workout.exercises.length} exercises'),
-                onTap: () {
-                  context.pushNamed(
-                    'workoutDetail',
-                    pathParameters: {'workoutId': '${workout.id}'},
-                  );
-                },
-                trailing: IconButton(
-                  onPressed: () {
-                    context.read<WorkoutBloc>().add(
-                      ToggleFavoriteWorkout(workout.id),
-                    );
-                  },
-                  icon: Icon(
-                    workout.isFavorite ? Icons.star : Icons.star_border,
-                  ),
-                ),
-              );
+              return WorkoutListTile(workout: workout);
             },
           );
         } else if (state is WorkoutLoading) {
