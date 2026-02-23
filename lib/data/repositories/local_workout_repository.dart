@@ -4,8 +4,8 @@ import 'package:cube_workouts/domain/repositories/workout_repository.dart';
 
 class LocalWorkoutRepository implements WorkoutRepository {
   @override
-  Future<void> addExcercise(int workoutId, Exercise exercise) {
-    // TODO: implement addExcercise
+  Future<void> addExercise(int workoutId, Exercise exercise) {
+    // TODO: implement addExercise
     throw UnimplementedError();
   }
 
@@ -16,7 +16,7 @@ class LocalWorkoutRepository implements WorkoutRepository {
   }
 
   @override
-  Future<void> deleteExercise(int workoutId) {
+  Future<void> deleteExercise(int workoutId, int exerciseId) {
     // TODO: implement deleteExercise
     throw UnimplementedError();
   }
@@ -24,12 +24,6 @@ class LocalWorkoutRepository implements WorkoutRepository {
   @override
   Future<void> deleteWorkout(int workoutId) {
     // TODO: implement deleteWorkout
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> editExcercise(int workoutId, Exercise exercise) {
-    // TODO: implement editExcercise
     throw UnimplementedError();
   }
 
@@ -48,6 +42,12 @@ class LocalWorkoutRepository implements WorkoutRepository {
   @override
   Future<List<Workout>> getWorkouts() {
     // TODO: implement getWorkouts
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> updateExercise(int workoutId, Exercise exercise) {
+    // TODO: implement updateExercise
     throw UnimplementedError();
   }
 
