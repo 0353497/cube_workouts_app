@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cube_workouts/domain/bloc/exercise_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<ExerciseAdded>(_onExerciseAdded);
     on<ExerciseUpdated>(_onExerciseUpdated);
     on<ExerciseDeleted>(_onExerciseDeleted);
+    on<ToggleFavoriteWorkout>(_onToggleFavoriteWorkout);
   }
 
   Future<void> _onWorkoutsRequested(
@@ -113,6 +116,18 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       add(const WorkoutsRequested());
     } catch (e) {
       emit(WorkoutError('Failed to delete exercise: $e'));
+    }
+  }
+
+  FutureOr<void> _onToggleFavoriteWorkout(
+    ToggleFavoriteWorkout event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      await _repository.toggleFavorite(event.workoutId);
+      add(const WorkoutsRequested());
+    } catch (e) {
+      emit(WorkoutError('Failed to toggle favorite workout: $e'));
     }
   }
 }

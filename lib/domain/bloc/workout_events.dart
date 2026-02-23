@@ -12,6 +12,12 @@ class FavoriteWorkoutsRequested extends WorkoutEvent {
   const FavoriteWorkoutsRequested();
 }
 
+class ToggleFavoriteWorkout extends WorkoutEvent {
+  final int workoutId;
+
+  const ToggleFavoriteWorkout(this.workoutId);
+}
+
 class WorkoutAdded extends WorkoutEvent {
   final Workout workout;
 

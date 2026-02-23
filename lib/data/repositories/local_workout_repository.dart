@@ -103,4 +103,12 @@ class LocalWorkoutRepository implements WorkoutRepository {
       (exercise) => exercise.id == exerciseId,
     );
   }
+
+  @override
+  Future<void> toggleFavorite(int workoutId) async {
+    getWorkout(workoutId).then((workout) {
+      final updatedWorkout = workout.copyWith(isFavorite: !workout.isFavorite);
+      return updateWorkout(updatedWorkout);
+    });
+  }
 }

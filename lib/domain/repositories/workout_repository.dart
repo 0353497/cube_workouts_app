@@ -13,6 +13,7 @@ abstract class WorkoutRepository {
   Future<void> addWorkout(Workout workout);
   Future<void> updateWorkout(Workout newWorkout);
   Future<void> deleteWorkout(int workoutId);
+  Future<void> toggleFavorite(int workoutId);
 
   Future<void> addExercise(int workoutId, Exercise exercise);
   Future<void> updateExercise(int workoutId, Exercise exercise);
