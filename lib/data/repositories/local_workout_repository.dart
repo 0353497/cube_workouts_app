@@ -1,4 +1,5 @@
 import 'package:cube_workouts/data/initial_data/initial_data.dart';
+import 'package:cube_workouts/data/models/workout_hive_dto.dart';
 import 'package:cube_workouts/data/repositories/hive_adapter_registry.dart';
 import 'package:cube_workouts/domain/models/exercise.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
@@ -14,11 +15,15 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
     registerWorkoutHiveAdapters();
 
-    _workoutBox = await Hive.openBox<Workout>('workouts');
-    if (_workoutBox.isEmpty) _workoutBox.addAll(initialData);
+    _workoutBox = await Hive.openBox<WorkoutHiveDto>('workouts');
+    if (_workoutBox.isEmpty) {
+      await _workoutBox.addAll(
+        initialData.map((workout) => WorkoutHiveDto.fromDomain(workout)),
+      );
+    }
   }
 
-  late final Box<Workout> _workoutBox;
+  late final Box<WorkoutHiveDto> _workoutBox;
 
   @override
   Future<void> addExercise(int workoutId, Exercise exercise) async {
@@ -31,7 +36,7 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
   @override
   Future<void> addWorkout(Workout workout) async {
-    _workoutBox.add(workout);
+    await _workoutBox.add(WorkoutHiveDto.fromDomain(workout));
   }
 
   @override
@@ -46,22 +51,27 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
   @override
   Future<void> deleteWorkout(int workoutId) async {
-    _workoutBox.deleteAt(_getWorkoutIndex(workoutId));
+    await _workoutBox.deleteAt(_getWorkoutIndex(workoutId));
   }
 
   @override
   Future<List<Workout>> getFavoriteWorkouts() async {
-    return _workoutBox.values.where((workout) => workout.isFavorite).toList();
+    return _workoutBox.values
+        .where((workout) => workout.isFavorite)
+        .map((workout) => workout.toDomain())
+        .toList();
   }
 
   @override
   Future<Workout> getWorkout(int workoutId) async {
-    return _workoutBox.values.firstWhere((workout) => workout.id == workoutId);
+    return _workoutBox.values
+        .firstWhere((workout) => workout.id == workoutId)
+        .toDomain();
   }
 
   @override
   Future<List<Workout>> getWorkouts() async {
-    return _workoutBox.values.toList();
+    return _workoutBox.values.map((workout) => workout.toDomain()).toList();
   }
 
   @override
@@ -76,7 +86,10 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
   @override
   Future<void> updateWorkout(Workout newWorkout) async {
-    _workoutBox.putAt(_getWorkoutIndex(newWorkout.id), newWorkout);
+    await _workoutBox.putAt(
+      _getWorkoutIndex(newWorkout.id),
+      WorkoutHiveDto.fromDomain(newWorkout),
+    );
   }
 
   int _getWorkoutIndex(int workoutId) {
