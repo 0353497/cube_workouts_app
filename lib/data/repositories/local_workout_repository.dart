@@ -1,8 +1,13 @@
 import 'package:cube_workouts/domain/models/exercise.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
 import 'package:cube_workouts/domain/repositories/workout_repository.dart';
+import 'package:hive/hive.dart';
 
 class LocalWorkoutRepository implements WorkoutRepository {
+  @override
+  Future<void> init() async {}
+  late final Box<List<Workout>> _workoutBox;
+
   @override
   Future<void> addExercise(int workoutId, Exercise exercise) {
     // TODO: implement addExercise

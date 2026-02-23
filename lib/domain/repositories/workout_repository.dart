@@ -4,6 +4,8 @@ import 'package:cube_workouts/domain/models/exercise.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
 
 abstract class WorkoutRepository {
+  Future<void> init();
+
   Future<List<Workout>> getWorkouts();
   Future<List<Workout>> getFavoriteWorkouts();
 
