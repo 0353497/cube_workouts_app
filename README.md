@@ -18,3 +18,13 @@ lib/
 
 Ik heb dit gekozen omdat de workout app relatief klein is en er niet veel lagen zijn. In deze situatie vind ik het logischer om de lagen te scheiden op basis van hun functie (data, domain, presentation) in plaats van op basis van features. Ook kies ik dit omdat meer lijkt op mijn huidige structuur waar ik mee werk en is, ook al is dat kleinschaliger (models, services, widgets, pages). Ook invergelijking met feature first vind ik deze logischer want waar zou ik dan herbruikbare code moeten plaatsen? Dan zou de core heel erg vol worden, en ik weet niet hoe ik dat zou moeten aan pakken.
 
+## Bonus
+- Lokale opslag met Hive
+ik heb gekozen voor Hive omdat ik al ervaring heb met Hive vanwege flutter en wou ik geen in memory opslag gebruiken voor de workouts. 
+
+
+//todo zoekfunctie + 300ms debounce
+//todo workout kopieren
+//todo drag en drop in bloc state reorablelistveiw
+//undo-redo van repo (word een uitdaging)
+//animated transisties (goed te doen)
