@@ -21,56 +21,73 @@ class LocalWorkoutRepository implements WorkoutRepository {
   late final Box<Workout> _workoutBox;
 
   @override
-  Future<void> addExercise(int workoutId, Exercise exercise) {
-    // TODO: implement addExercise
-    throw UnimplementedError();
+  Future<void> addExercise(int workoutId, Exercise exercise) async {
+    final Workout workout = await getWorkout(workoutId);
+    final updatedWorkout = workout.copyWith(
+      exercises: List.from(workout.exercises)..add(exercise),
+    );
+    await updateWorkout(updatedWorkout);
   }
 
   @override
-  Future<void> addWorkout(Workout workout) {
-    // TODO: implement addWorkout
-    throw UnimplementedError();
+  Future<void> addWorkout(Workout workout) async {
+    _workoutBox.add(workout);
   }
 
   @override
-  Future<void> deleteExercise(int workoutId, int exerciseId) {
-    // TODO: implement deleteExercise
-    throw UnimplementedError();
+  Future<void> deleteExercise(int workoutId, int exerciseId) async {
+    final workout = await getWorkout(workoutId);
+    final exerciseIndex = _getExerciseIndex(workout, exerciseId);
+    final updatedWorkout = workout.copyWith(
+      exercises: List.from(workout.exercises)..removeAt(exerciseIndex),
+    );
+    await updateWorkout(updatedWorkout);
   }
 
   @override
-  Future<void> deleteWorkout(int workoutId) {
-    // TODO: implement deleteWorkout
-    throw UnimplementedError();
+  Future<void> deleteWorkout(int workoutId) async {
+    _workoutBox.deleteAt(_getWorkoutIndex(workoutId));
   }
 
   @override
-  Future<List<Workout>> getFavoriteWorkouts() {
-    // TODO: implement getFavoriteWorkouts
-    throw UnimplementedError();
+  Future<List<Workout>> getFavoriteWorkouts() async {
+    return _workoutBox.values.where((workout) => workout.isFavorite).toList();
   }
 
   @override
-  Future<Workout> getWorkout(int workoutId) {
-    // TODO: implement getWorkout
-    throw UnimplementedError();
+  Future<Workout> getWorkout(int workoutId) async {
+    return _workoutBox.values.firstWhere((workout) => workout.id == workoutId);
   }
 
   @override
-  Future<List<Workout>> getWorkouts() {
-    // TODO: implement getWorkouts
-    throw UnimplementedError();
+  Future<List<Workout>> getWorkouts() async {
+    return _workoutBox.values.toList();
   }
 
   @override
-  Future<void> updateExercise(int workoutId, Exercise exercise) {
-    // TODO: implement updateExercise
-    throw UnimplementedError();
+  Future<void> updateExercise(int workoutId, Exercise exercise) async {
+    final workout = await getWorkout(workoutId);
+    final exerciseIndex = _getExerciseIndex(workout, exercise.id);
+    final updatedWorkout = workout.copyWith(
+      exercises: List.from(workout.exercises)..[exerciseIndex] = exercise,
+    );
+    await updateWorkout(updatedWorkout);
   }
 
   @override
-  Future<void> updateWorkout(Workout newWorkout) {
-    // TODO: implement updateWorkout
-    throw UnimplementedError();
+  Future<void> updateWorkout(Workout newWorkout) async {
+    _workoutBox.putAt(_getWorkoutIndex(newWorkout.id), newWorkout);
+  }
+
+  int _getWorkoutIndex(int workoutId) {
+    return _workoutBox.values.toList().indexWhere(
+      (workout) => workout.id == workoutId,
+    );
+  }
+
+  int _getExerciseIndex(Workout workout, int exerciseId) {
+    return workout.exercises.indexWhere(
+      (exercise) => exercise.id == exerciseId,
+    );
   }
 }
