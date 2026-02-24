@@ -57,12 +57,7 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       itemCount: workout.exercises.length,
                       itemBuilder: (context, index) {
                         final exercise = workout.exercises[index];
-                        return ListTile(
-                          title: Text(exercise.name),
-                          subtitle: Text(
-                            '${exercise.sets} sets of ${exercise.reps} reps',
-                          ),
-                        );
+                        return ListTile(title: Text(exercise.name));
                       },
                     ),
                   ),
