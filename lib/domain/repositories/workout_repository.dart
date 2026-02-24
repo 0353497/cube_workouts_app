@@ -8,6 +8,7 @@ abstract class WorkoutRepository {
 
   Future<List<Workout>> getWorkouts();
   Future<List<Workout>> getFavoriteWorkouts();
+  Future<List<Workout>> searchWorkouts(String query);
 
   Future<Workout> getWorkout(int workoutId);
   Future<void> addWorkout(Workout workout);

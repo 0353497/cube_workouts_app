@@ -35,3 +35,9 @@ class WorkoutDeleted extends WorkoutEvent {
 
   const WorkoutDeleted(this.workoutId);
 }
+
+class WorkoutSearch extends WorkoutEvent {
+  final String query;
+
+  const WorkoutSearch(this.query);
+}
