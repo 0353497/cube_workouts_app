@@ -1,7 +1,7 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
-import 'package:cube_workouts/presentation/widgets/workout_list_tile.dart';
+import 'package:cube_workouts/presentation/widgets/workout_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,7 +35,7 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
             itemCount: workouts.length,
             itemBuilder: (context, index) {
               final workout = workouts[index];
-              return WorkoutListTile(workout: workout);
+              return WorkoutCard(workout: workout);
             },
           );
         } else if (state is WorkoutLoading) {
