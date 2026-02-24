@@ -8,6 +8,12 @@ class WorkoutsRequested extends WorkoutEvent {
   const WorkoutsRequested();
 }
 
+class GetWorkout extends WorkoutEvent {
+  final int workoutId;
+
+  GetWorkout(this.workoutId);
+}
+
 class FavoriteWorkoutsRequested extends WorkoutEvent {
   const FavoriteWorkoutsRequested();
 }

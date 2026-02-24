@@ -20,6 +20,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<ExerciseUpdated>(_onExerciseUpdated);
     on<ExerciseDeleted>(_onExerciseDeleted);
     on<ToggleFavoriteWorkout>(_onToggleFavoriteWorkout);
+    on<GetWorkout>(_getWorkout);
   }
 
   Future<void> _onWorkoutsRequested(
@@ -154,6 +155,19 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       emit(WorkoutLoaded(workouts));
     } catch (e) {
       emit(WorkoutError('Failed to search workouts: $e'));
+    }
+  }
+
+  FutureOr<void> _getWorkout(
+    GetWorkout event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    emit(WorkoutLoading());
+    try {
+      final workout = await _repository.getWorkout(event.workoutId);
+      emit(WorkoutDetailLoaded(workout));
+    } catch (e) {
+      emit(WorkoutError('Failed to load workout: $e'));
     }
   }
 }
