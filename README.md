@@ -51,4 +51,4 @@ ik zat nog te denken om de id's om te zetten naar een string zodat ik de uuid pa
 
 
 Ook ben ik wel over de tijd, dit kwam doordat ik onderzoek moest doen over de structuur van de code en packages, bijvoorbeeld,
-hoe werkt bloc, go router, freezed en wat is een repository. Ik had met stage bij yellowQ wel ervaring met repositories. maar werd nooit uitgelegd wat het is en hoe het werkt. aangezien die developer alleen uit nepal kwam. 
+hoe werkt bloc, go router, freezed en wat is een repository. Ik had met stage bij yellowQ wel ervaring met repositories. maar werd nooit uitgelegd wat het is en hoe het werkt. aangezien die developer alleen uit nepal kwam. Maar ik hoop dat ik nu de structuur goed heb. anders graag feedback hierover.
