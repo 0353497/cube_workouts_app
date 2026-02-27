@@ -38,25 +38,11 @@ heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeke
 - hive: voor lokale opslag van workouts
 - image_picker: voor het selecteren van afbeeldingen voor workouts
 - json_annotation: voor het genereren van json serializable code
-- path: voor het manipuleren van bestands paden
 - path_provider: voor het vinden van de juiste paden op het apparaat
+- build_runner: voor het genereren van code
+- freezed: voor het genereren van immutable classes en union types
 
 
-  <!-- flutter_bloc: ^9.1.1
-  freezed_annotation: ^3.1.0
-  go_router: ^17.0.0
-  hive: ^2.2.3
-  image_picker: ^1.2.1
-  json_annotation: ^4.9.0
-  path: ^1.9.1
-  path_provider: ^2.1.5
-
-  flutter_test:
-    sdk: flutter
-  build_runner: ^2.11.1
-  freezed: ^3.2.3
-  flutter_lints: ^5.0.0
-  json_serializable: ^6.11.2 -->
 
 
 ## extra
