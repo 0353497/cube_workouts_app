@@ -31,7 +31,35 @@ heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeke
 //animated transisties (goed te doen)
 
 
+## packages
+- flutter_bloc: voor state management
+- freezed_annotation: voor het genereren van immutable classes en union types
+- go_router: voor het navigeren tussen schermen
+- hive: voor lokale opslag van workouts
+- image_picker: voor het selecteren van afbeeldingen voor workouts
+- json_annotation: voor het genereren van json serializable code
+- path: voor het manipuleren van bestands paden
+- path_provider: voor het vinden van de juiste paden op het apparaat
+
+
+  <!-- flutter_bloc: ^9.1.1
+  freezed_annotation: ^3.1.0
+  go_router: ^17.0.0
+  hive: ^2.2.3
+  image_picker: ^1.2.1
+  json_annotation: ^4.9.0
+  path: ^1.9.1
+  path_provider: ^2.1.5
+
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.11.1
+  freezed: ^3.2.3
+  flutter_lints: ^5.0.0
+  json_serializable: ^6.11.2 -->
+
 
 ## extra
 
 ik zat nog te denken om de id's om te zetten naar een string zodat ik de uuid package kan gebruiken, maar anders zou er nog veel moeten worden aangepast, en dat is op dit moment niet nodig, en ik wil de initial data niet zomaar aanpassen. Dus ik heb ervoor gekozen om de id's als int te laten en een timestamp te gebruiken als id generator, dat is ook uniek genoeg voor deze app.
+
