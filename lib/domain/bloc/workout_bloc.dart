@@ -99,7 +99,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.addExercise(event.workoutId, event.exercise);
-      add(const WorkoutsRequested());
+      add(GetWorkout(event.workoutId));
     } catch (e) {
       emit(WorkoutError('Failed to add exercise: $e'));
     }
@@ -111,7 +111,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.updateExercise(event.workoutId, event.exercise);
-      add(const WorkoutsRequested());
+      add(GetWorkout(event.workoutId));
     } catch (e) {
       emit(WorkoutError('Failed to update exercise: $e'));
     }
@@ -123,7 +123,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.deleteExercise(event.workoutId, event.exerciseId);
-      add(const WorkoutsRequested());
+      add(GetWorkout(event.workoutId));
     } catch (e) {
       emit(WorkoutError('Failed to delete exercise: $e'));
     }
