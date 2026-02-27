@@ -114,10 +114,14 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
   @override
   Future<List<Workout>> searchWorkouts(String query) async {
-    if (query.isEmpty) return [];
     final lowerCaseQuery = query.trim().toLowerCase();
+    if (lowerCaseQuery.isEmpty) return getWorkouts();
+
     return _workoutBox.values
-        .where((workoutDto) => workoutDto.name.contains(lowerCaseQuery))
+        .where(
+          (workoutDto) =>
+              workoutDto.name.toLowerCase().contains(lowerCaseQuery),
+        )
         .map((workoutDto) => workoutDto.toDomain())
         .toList();
   }
