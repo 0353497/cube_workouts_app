@@ -1,4 +1,5 @@
 import 'package:cube_workouts/domain/models/exercise.dart';
+import 'package:cube_workouts/presentation/widgets/delete_dismissible.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseTile extends StatelessWidget {
@@ -14,23 +15,10 @@ class ExerciseTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dismissible(
-      key: ValueKey(exercise.id),
-      direction: DismissDirection.endToStart,
-      background: Container(
-        margin: const EdgeInsets.symmetric(vertical: 6),
-        alignment: Alignment.centerRight,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.error,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Icon(
-          Icons.delete_outline,
-          color: Theme.of(context).colorScheme.onError,
-        ),
-      ),
-      onDismissed: (_) => onDelete(),
+    return DeleteDismissible(
+      dismissKey: ValueKey(exercise.id),
+      onDelete: onDelete,
+      backgroundMargin: const EdgeInsets.symmetric(vertical: 6),
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),
         elevation: 4,

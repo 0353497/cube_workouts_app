@@ -1,4 +1,5 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
+import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
 import 'package:cube_workouts/presentation/widgets/workout_card.dart';
 import 'package:cube_workouts/presentation/widgets/workout_error_widget.dart';
@@ -30,7 +31,12 @@ class WorkoutBlockWidget extends StatelessWidget {
             itemCount: workouts.length,
             itemBuilder: (context, index) {
               final workout = workouts[index];
-              return WorkoutCard(workout: workout);
+              return WorkoutCard(
+                workout: workout,
+                onDelete: () {
+                  context.read<WorkoutBloc>().add(WorkoutDeleted(workout.id));
+                },
+              );
             },
           );
         }
