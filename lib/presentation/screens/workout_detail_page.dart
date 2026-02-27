@@ -5,6 +5,7 @@ import 'package:cube_workouts/presentation/widgets/add_exercise_bottom_sheet.dar
 import 'package:cube_workouts/presentation/widgets/exercise_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 class WorkoutDetailPage extends StatefulWidget {
   const WorkoutDetailPage({super.key, required this.workoutId});
@@ -25,7 +26,26 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Workout Details')),
+      appBar: AppBar(
+        title: const Text('Workout Details'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+            final lastLocation = GoRouter.of(
+              context,
+            ).routerDelegate.currentConfiguration.last;
+            bool ifFromFavorites = lastLocation.route.path == '/favorites';
+            if (ifFromFavorites) {
+              context.read<WorkoutBloc>().add(
+                const FavoriteWorkoutsRequested(),
+              );
+            } else {
+              context.read<WorkoutBloc>().add(const WorkoutsRequested());
+            }
+          },
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showModalBottomSheet<void>(
