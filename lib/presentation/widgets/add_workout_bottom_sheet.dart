@@ -4,6 +4,7 @@ import 'package:cube_workouts/domain/bloc/workout_state.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddWorkoutBottomSheet extends StatefulWidget {
@@ -49,12 +50,15 @@ class _AddWorkoutBottomSheetState extends State<AddWorkoutBottomSheet> {
           .reduce((a, b) => a > b ? a : b);
       nextWorkoutId = maxId + 1;
     }
+    bool isFromfavorite =
+        GoRouter.of(context).state.path?.contains("favorites") ?? false;
 
     final workout = Workout(
       id: nextWorkoutId,
       name: _nameController.text.trim(),
       exercises: const [],
       img: _selectedImage?.path,
+      isFavorite: isFromfavorite,
     );
 
     context.read<WorkoutBloc>().add(WorkoutAdded(workout));

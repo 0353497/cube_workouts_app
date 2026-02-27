@@ -1,6 +1,6 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
-import 'package:cube_workouts/presentation/widgets/add_workout_bottom_sheet.dart';
+import 'package:cube_workouts/presentation/widgets/add_workout_floating_action_button.dart';
 import 'package:cube_workouts/presentation/widgets/workout_block_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,21 +21,12 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return const Stack(
       children: [
-        const WorkoutBlockWidget(),
+        WorkoutBlockWidget(),
         Align(
           alignment: Alignment(.8, .9),
-          child: FloatingActionButton(
-            onPressed: () {
-              showModalBottomSheet<void>(
-                context: context,
-                isScrollControlled: true,
-                builder: (context) => const AddWorkoutBottomSheet(),
-              );
-            },
-            child: const Icon(Icons.add),
-          ),
+          child: AddWorkoutFloatingActionButton(),
         ),
       ],
     );
