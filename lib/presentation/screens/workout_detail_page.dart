@@ -1,4 +1,5 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
+import 'package:cube_workouts/domain/bloc/exercise_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
 import 'package:cube_workouts/presentation/widgets/add_exercise_bottom_sheet.dart';
@@ -89,7 +90,15 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                       itemCount: workout.exercises.length,
                       itemBuilder: (context, index) {
                         final exercise = workout.exercises[index];
-                        return ExerciseTile(exercise: exercise, index: index);
+                        return ExerciseTile(
+                          exercise: exercise,
+                          index: index,
+                          onDelete: () {
+                            context.read<WorkoutBloc>().add(
+                              ExerciseDeleted(exercise.id, widget.workoutId),
+                            );
+                          },
+                        );
                       },
                     ),
                   ),

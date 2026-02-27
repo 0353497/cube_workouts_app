@@ -2,29 +2,56 @@ import 'package:cube_workouts/domain/models/exercise.dart';
 import 'package:flutter/material.dart';
 
 class ExerciseTile extends StatelessWidget {
-  const ExerciseTile({super.key, required this.exercise, required this.index});
+  const ExerciseTile({
+    super.key,
+    required this.exercise,
+    required this.index,
+    required this.onDelete,
+  });
   final int index;
   final Exercise exercise;
+  final VoidCallback onDelete;
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.symmetric(vertical: 6),
-      elevation: 4,
-      child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        leading: CircleAvatar(child: Text('${index + 1}')),
-        title: Text(
-          exercise.name,
-          style: Theme.of(context).textTheme.titleMedium,
+    return Dismissible(
+      key: ValueKey(exercise.id),
+      direction: DismissDirection.endToStart,
+      background: Container(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.error,
+          borderRadius: BorderRadius.circular(12),
         ),
-        subtitle: Padding(
-          padding: const EdgeInsets.only(top: 6),
-          child: Wrap(
-            spacing: 12,
-            runSpacing: 6,
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: _exerciseSubtitle(exercise),
+        child: Icon(
+          Icons.delete_outline,
+          color: Theme.of(context).colorScheme.onError,
+        ),
+      ),
+      onDismissed: (_) => onDelete(),
+      child: Card(
+        margin: const EdgeInsets.symmetric(vertical: 6),
+        elevation: 4,
+        child: ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          leading: CircleAvatar(child: Text('${index + 1}')),
+          title: Text(
+            exercise.name,
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
+          subtitle: Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Wrap(
+              spacing: 12,
+              runSpacing: 6,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: _exerciseSubtitle(exercise),
+            ),
           ),
         ),
       ),
