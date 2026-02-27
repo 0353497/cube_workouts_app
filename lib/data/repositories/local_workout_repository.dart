@@ -125,4 +125,10 @@ class LocalWorkoutRepository implements WorkoutRepository {
         .map((workoutDto) => workoutDto.toDomain())
         .toList();
   }
+
+  @override
+  Future<Workout> deepCopyWorkout(int workoutId) {
+    // TODO: implement deepCopyWorkout
+    throw UnimplementedError();
+  }
 }
