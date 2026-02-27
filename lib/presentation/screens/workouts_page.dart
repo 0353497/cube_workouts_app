@@ -20,6 +20,14 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return WorkoutBlockWidget();
+    return Stack(
+      children: [
+        const WorkoutBlockWidget(),
+        Align(
+          alignment: Alignment(.8, .9),
+          child: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)),
+        ),
+      ],
+    );
   }
 }

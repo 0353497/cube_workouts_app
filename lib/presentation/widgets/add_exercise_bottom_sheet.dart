@@ -196,12 +196,3 @@ class _AddExerciseBottomSheetState extends State<AddExerciseBottomSheet> {
     );
   }
 }
-
-class AddExcersiceBottomSheet extends StatelessWidget {
-  const AddExcersiceBottomSheet({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const SizedBox.shrink();
-  }
-}
