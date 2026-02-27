@@ -22,6 +22,10 @@ class WorkoutBlockWidget extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
+        if (state is WorkoutEmpty) {
+          return WorkoutEmptyWidget();
+        }
+
         if (state is WorkoutLoaded) {
           final workouts = state.workouts;
           if (workouts.isEmpty) {
@@ -40,9 +44,6 @@ class WorkoutBlockWidget extends StatelessWidget {
               );
             },
           );
-        }
-        if (state is WorkoutEmpty) {
-          return WorkoutEmptyWidget();
         }
 
         return const SizedBox.shrink();
