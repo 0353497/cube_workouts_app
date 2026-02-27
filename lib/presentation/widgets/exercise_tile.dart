@@ -18,7 +18,6 @@ class ExerciseTile extends StatelessWidget {
     return DeleteDismissible(
       dismissKey: ValueKey(exercise.id),
       onDelete: onDelete,
-      backgroundMargin: const EdgeInsets.symmetric(vertical: 6),
       child: Card(
         margin: const EdgeInsets.symmetric(vertical: 6),
         elevation: 4,

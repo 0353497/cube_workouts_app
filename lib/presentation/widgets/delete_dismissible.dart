@@ -6,13 +6,11 @@ class DeleteDismissible extends StatelessWidget {
     required this.dismissKey,
     required this.onDelete,
     required this.child,
-    this.backgroundMargin,
   });
 
   final Key dismissKey;
   final VoidCallback onDelete;
   final Widget child;
-  final EdgeInsetsGeometry? backgroundMargin;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,6 @@ class DeleteDismissible extends StatelessWidget {
       key: dismissKey,
       direction: DismissDirection.endToStart,
       background: Container(
-        margin: backgroundMargin,
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.symmetric(horizontal: 20),
         decoration: BoxDecoration(
