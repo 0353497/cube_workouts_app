@@ -8,6 +8,7 @@ import 'package:cube_workouts/domain/repositories/workout_repository.dart';
 
 class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   final WorkoutRepository _repository;
+  bool _isFavoritesView = false;
 
   WorkoutBloc(this._repository) : super(WorkoutInitial()) {
     on<WorkoutsRequested>(_onWorkoutsRequested);
@@ -27,6 +28,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     WorkoutsRequested event,
     Emitter<WorkoutState> emit,
   ) async {
+    _isFavoritesView = false;
     emit(WorkoutLoading());
     try {
       final workouts = await _repository.getWorkouts();
@@ -44,6 +46,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     FavoriteWorkoutsRequested event,
     Emitter<WorkoutState> emit,
   ) async {
+    _isFavoritesView = true;
     emit(WorkoutLoading());
     try {
       final workouts = await _repository.getFavoriteWorkouts();
@@ -63,7 +66,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.addWorkout(event.workout);
-      add(const WorkoutsRequested());
+      _refreshCurrentList();
     } catch (e) {
       emit(WorkoutError('Failed to add workout: $e'));
     }
@@ -75,7 +78,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.updateWorkout(event.workout);
-      add(const WorkoutsRequested());
+      _refreshCurrentList();
     } catch (e) {
       emit(WorkoutError('Failed to update workout: $e'));
     }
@@ -87,7 +90,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.deleteWorkout(event.workoutId);
-      add(const WorkoutsRequested());
+      _refreshCurrentList();
     } catch (e) {
       emit(WorkoutError('Failed to delete workout: $e'));
     }
@@ -135,10 +138,18 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.toggleFavorite(event.workoutId);
-      add(const WorkoutsRequested());
+      _refreshCurrentList();
     } catch (e) {
       emit(WorkoutError('Failed to toggle favorite workout: $e'));
     }
+  }
+
+  void _refreshCurrentList() {
+    add(
+      _isFavoritesView
+          ? const FavoriteWorkoutsRequested()
+          : const WorkoutsRequested(),
+    );
   }
 
   FutureOr<void> _onWorkoutSearch(
