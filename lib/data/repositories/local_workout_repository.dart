@@ -127,19 +127,23 @@ class LocalWorkoutRepository implements WorkoutRepository {
   }
 
   @override
-  Future<Workout> deepCopyWorkout(int workoutId) {
-    return getWorkout(workoutId).then((workout) {
-      final copiedWorkout = workout.copyWith(
-        id: DateTime.now().millisecondsSinceEpoch,
-        name: '${workout.name} Copy',
-        exercises: workout.exercises
-            .map(
-              (exercise) =>
-                  exercise.copyWith(id: DateTime.now().millisecondsSinceEpoch),
-            )
-            .toList(),
-      );
-      return addWorkout(copiedWorkout).then((_) => copiedWorkout);
-    });
+  Future<Workout> deepCopyWorkout(int workoutId) async {
+    final oldWorkout = await getWorkout(workoutId);
+
+    final copiedWorkout = oldWorkout.copyWith(
+      id: DateTime.now().millisecondsSinceEpoch,
+      name: '${oldWorkout.name} Copy',
+      //nieuwe id via timestap +index, zodat er geen duplicate id's zijn bij de oefeningen
+      exercises: oldWorkout.exercises
+          .asMap()
+          .entries
+          .map(
+            (entry) => entry.value.copyWith(
+              id: DateTime.now().millisecondsSinceEpoch + entry.key,
+            ),
+          )
+          .toList(),
+    );
+    return addWorkout(copiedWorkout).then((_) => copiedWorkout);
   }
 }
