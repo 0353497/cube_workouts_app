@@ -1,6 +1,7 @@
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
+import 'package:cube_workouts/presentation/widgets/add_exercise_bottom_sheet.dart';
 import 'package:cube_workouts/presentation/widgets/exercise_tile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,14 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Workout Details')),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          showModalBottomSheet<void>(
+            context: context,
+            isScrollControlled: true,
+            builder: (context) =>
+                AddExerciseBottomSheet(workoutId: widget.workoutId),
+          );
+        },
         child: const Icon(Icons.add),
       ),
       body: BlocBuilder<WorkoutBloc, WorkoutState>(
