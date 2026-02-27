@@ -29,3 +29,9 @@ heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeke
 //todo drag en drop in bloc state reorablelistveiw
 //undo-redo van repo (word een uitdaging)
 //animated transisties (goed te doen)
+
+
+
+## extra
+
+ik zat nog te denken om de id's om te zetten naar een string zodat ik de uuid package kan gebruiken, maar anders zou er nog veel moeten worden aangepast, en dat is op dit moment niet nodig, en ik wil de initial data niet zomaar aanpassen. Dus ik heb ervoor gekozen om de id's als int te laten en een timestamp te gebruiken als id generator, dat is ook uniek genoeg voor deze app.

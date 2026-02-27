@@ -128,7 +128,18 @@ class LocalWorkoutRepository implements WorkoutRepository {
 
   @override
   Future<Workout> deepCopyWorkout(int workoutId) {
-    // TODO: implement deepCopyWorkout
-    throw UnimplementedError();
+    return getWorkout(workoutId).then((workout) {
+      final copiedWorkout = workout.copyWith(
+        id: DateTime.now().millisecondsSinceEpoch,
+        name: '${workout.name} Copy',
+        exercises: workout.exercises
+            .map(
+              (exercise) =>
+                  exercise.copyWith(id: DateTime.now().millisecondsSinceEpoch),
+            )
+            .toList(),
+      );
+      return addWorkout(copiedWorkout).then((_) => copiedWorkout);
+    });
   }
 }
