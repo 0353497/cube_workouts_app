@@ -23,7 +23,8 @@ Ik heb dit gekozen omdat de workout app relatief klein is en er niet veel lagen 
 ik heb gekozen voor Hive omdat ik al ervaring heb met Hive vanwege flutter en wou ik geen in memory opslag gebruiken voor de workouts. 
 
 
-//todo zoekfunctie + 300ms debounce
+- do zoekfunctie + 300ms debounce
+heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeken op naam. Ik heb een debounce van 300ms toegevoegd om te voorkomen dat er te veel zoekopdrachten worden uitgevoerd terwijl de gebruiker typt.
 //todo workout kopieren
 //todo drag en drop in bloc state reorablelistveiw
 //undo-redo van repo (word een uitdaging)
