@@ -44,25 +44,28 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        children: [
-          SearchBar(
-            controller: _searchController,
-            hintText: 'Search workouts',
-            onChanged: _onSearchChanged,
-          ),
-          Expanded(
-            child: const Stack(
-              children: [
-                WorkoutBlockWidget(),
-                Align(
-                  alignment: Alignment(.8, .9),
-                  child: AddWorkoutFloatingActionButton(),
-                ),
-              ],
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            SearchBar(
+              controller: _searchController,
+              hintText: 'Search workouts',
+              onChanged: _onSearchChanged,
             ),
-          ),
-        ],
+            Expanded(
+              child: const Stack(
+                children: [
+                  WorkoutBlockWidget(),
+                  Align(
+                    alignment: Alignment(.8, .9),
+                    child: AddWorkoutFloatingActionButton(),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
