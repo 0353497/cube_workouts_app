@@ -95,18 +95,30 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Expanded(
-                    child: ListView.builder(
+                    child: ReorderableListView.builder(
                       itemCount: workout.exercises.length,
+                      onReorder: (oldIndex, newIndex) {
+                        context.read<WorkoutBloc>().add(
+                          ExerciseReordered(
+                            widget.workoutId,
+                            oldIndex,
+                            newIndex,
+                          ),
+                        );
+                      },
                       itemBuilder: (context, index) {
                         final exercise = workout.exercises[index];
-                        return ExerciseTile(
-                          exercise: exercise,
-                          index: index,
-                          onDelete: () {
-                            context.read<WorkoutBloc>().add(
-                              ExerciseDeleted(exercise.id, widget.workoutId),
-                            );
-                          },
+                        return Container(
+                          key: ValueKey(exercise.id),
+                          child: ExerciseTile(
+                            exercise: exercise,
+                            index: index,
+                            onDelete: () {
+                              context.read<WorkoutBloc>().add(
+                                ExerciseDeleted(exercise.id, widget.workoutId),
+                              );
+                            },
+                          ),
                         );
                       },
                     ),

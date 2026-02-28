@@ -29,3 +29,11 @@ class ExerciseDeleted extends ExerciseEvent {
   final int workoutId;
   const ExerciseDeleted(this.exerciseId, this.workoutId);
 }
+
+class ExerciseReordered extends ExerciseEvent {
+  final int workoutId;
+  final int oldIndex;
+  final int newIndex;
+
+  const ExerciseReordered(this.workoutId, this.oldIndex, this.newIndex);
+}

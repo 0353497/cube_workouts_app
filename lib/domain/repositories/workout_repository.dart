@@ -19,6 +19,7 @@ abstract class WorkoutRepository {
   Future<void> addExercise(int workoutId, Exercise exercise);
   Future<void> updateExercise(int workoutId, Exercise exercise);
   Future<void> deleteExercise(int workoutId, int exerciseId);
+  Future<void> reorderExercises(int workoutId, int oldIndex, int newIndex);
 
   Future<Workout> deepCopyWorkout(int workoutId);
 }

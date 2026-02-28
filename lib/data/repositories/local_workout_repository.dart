@@ -50,6 +50,28 @@ class LocalWorkoutRepository implements WorkoutRepository {
   }
 
   @override
+  Future<void> reorderExercises(
+    int workoutId,
+    int oldIndex,
+    int newIndex,
+  ) async {
+    final workout = await getWorkout(workoutId);
+    final exercises = List<Exercise>.from(workout.exercises);
+
+    if (oldIndex < 0 || oldIndex >= exercises.length) return;
+    if (newIndex < 0 || newIndex > exercises.length) return;
+
+    if (newIndex > oldIndex) {
+      newIndex -= 1;
+    }
+
+    final movedExercise = exercises.removeAt(oldIndex);
+    exercises.insert(newIndex, movedExercise);
+
+    await updateWorkout(workout.copyWith(exercises: exercises));
+  }
+
+  @override
   Future<void> deleteWorkout(int workoutId) async {
     await _workoutBox.deleteAt(_getWorkoutIndex(workoutId));
   }

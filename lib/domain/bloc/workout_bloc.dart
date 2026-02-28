@@ -20,6 +20,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<ExerciseAdded>(_onExerciseAdded);
     on<ExerciseUpdated>(_onExerciseUpdated);
     on<ExerciseDeleted>(_onExerciseDeleted);
+    on<ExerciseReordered>(_onExerciseReordered);
     on<ToggleFavoriteWorkout>(_onToggleFavoriteWorkout);
     on<GetWorkout>(_getWorkout);
     on<WorkoutCopy>(_onWorkoutCopy);
@@ -130,6 +131,41 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       add(GetWorkout(event.workoutId));
     } catch (e) {
       emit(WorkoutError('Failed to delete exercise: $e'));
+    }
+  }
+
+  Future<void> _onExerciseReordered(
+    ExerciseReordered event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      if (state is WorkoutDetailLoaded &&
+          (state as WorkoutDetailLoaded).workout.id == event.workoutId) {
+        final currentWorkout = (state as WorkoutDetailLoaded).workout;
+        final exercises = List.of(currentWorkout.exercises);
+
+        if (event.oldIndex < 0 || event.oldIndex >= exercises.length) return;
+        if (event.newIndex < 0 || event.newIndex > exercises.length) return;
+
+        var targetIndex = event.newIndex;
+        if (targetIndex > event.oldIndex) {
+          targetIndex -= 1;
+        }
+
+        final movedExercise = exercises.removeAt(event.oldIndex);
+        exercises.insert(targetIndex, movedExercise);
+
+        final updatedWorkout = currentWorkout.copyWith(exercises: exercises);
+        emit(WorkoutDetailLoaded(updatedWorkout));
+      }
+
+      await _repository.reorderExercises(
+        event.workoutId,
+        event.oldIndex,
+        event.newIndex,
+      );
+    } catch (e) {
+      emit(WorkoutError('Failed to reorder exercises: $e'));
     }
   }
 
