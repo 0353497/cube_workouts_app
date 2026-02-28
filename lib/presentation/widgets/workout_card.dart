@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cube_workouts/domain/bloc/workout_bloc.dart';
 import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/models/workout.dart';
@@ -10,6 +12,36 @@ class WorkoutCard extends StatelessWidget {
   const WorkoutCard({super.key, required this.workout, required this.onDelete});
   final Workout workout;
   final VoidCallback onDelete;
+
+  Widget _buildWorkoutImage(String imagePath) {
+    final normalizedPath = imagePath.trim();
+    final uri = Uri.tryParse(normalizedPath);
+    final isFileUri = uri?.scheme == 'file';
+    final isAbsoluteFilePath =
+        normalizedPath.startsWith('/') ||
+        RegExp(r'^[a-zA-Z]:\\').hasMatch(normalizedPath);
+
+    if (isFileUri || isAbsoluteFilePath) {
+      debugPrint('Loading local image from path: $imagePath');
+      return Image.file(
+        isFileUri ? File.fromUri(uri!) : File(normalizedPath),
+        fit: BoxFit.cover,
+        errorBuilder: (context, error, stackTrace) {
+          return const Center(child: Icon(Icons.broken_image, size: 50));
+        },
+      );
+    }
+    debugPrint('Loading network image from URL: $imagePath');
+
+    return Image.network(
+      imagePath,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) {
+        return const Center(child: Icon(Icons.broken_image, size: 50));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return DeleteDismissible(
@@ -32,7 +64,7 @@ class WorkoutCard extends StatelessWidget {
                     aspectRatio: 3 / 2,
                     child: ClipRRect(
                       borderRadius: BorderRadiusGeometry.circular(12),
-                      child: Image.network(workout.img!, fit: BoxFit.cover),
+                      child: _buildWorkoutImage(workout.img!),
                     ),
                   ),
                 Text(

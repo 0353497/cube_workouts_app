@@ -53,8 +53,8 @@ class _WorkoutsPageState extends State<WorkoutsPage> {
               hintText: 'Search workouts',
               onChanged: _onSearchChanged,
             ),
-            Expanded(
-              child: const Stack(
+            const Expanded(
+              child: Stack(
                 children: [
                   WorkoutBlockWidget(),
                   Align(
