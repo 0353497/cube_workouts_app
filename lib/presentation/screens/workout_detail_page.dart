@@ -4,6 +4,7 @@ import 'package:cube_workouts/domain/bloc/workout_events.dart';
 import 'package:cube_workouts/domain/bloc/workout_state.dart';
 import 'package:cube_workouts/presentation/widgets/add_exercise_bottom_sheet.dart';
 import 'package:cube_workouts/presentation/widgets/exercise_tile.dart';
+import 'package:cube_workouts/presentation/widgets/workout_img.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -75,6 +76,14 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  if (workout.img != null)
+                    AspectRatio(
+                      aspectRatio: 3 / 2,
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(12),
+                        child: WorkoutImg(imagePath: workout.img!),
+                      ),
+                    ),
                   Text(
                     workout.name,
                     style: Theme.of(context).textTheme.headlineMedium,
