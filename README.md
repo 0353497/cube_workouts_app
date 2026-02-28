@@ -27,9 +27,13 @@ ik heb gekozen voor Hive omdat ik al ervaring heb met Hive vanwege flutter en wo
 heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeken op naam. Ik heb een debounce van 300ms toegevoegd om te voorkomen dat er te veel zoekopdrachten worden uitgevoerd terwijl de gebruiker typt.
 - workout kopieren
 de kopieer functie werkt door de huidige workout te kopieren met een nieuwe id gegeneerd door de datetime, daarna wordt door de lijst van exercises geloopt om daar ook de id te genereren met datetime + index, zodat ze sowiezo uniek zijn. Daarna wordt de gekopieerde workout toegevoegd aan de lijst van workouts in de repository.
-//todo drag en drop in bloc state reorablelistveiw
-//undo-redo van repo (word een uitdaging)
-//animated transisties (goed te doen)
+-  drag en drop in bloc state reorablelistveiw
+de drag en drop functionaliteit is toegevoegd aan de workout lijst, zodat je workouts kan herschikken. Dit is gedaan door gebruik te maken van de ReorderableListView, niet door een package. De nieuwe volgorde van de workouts wordt opgeslagen in de bloc state, zodat deze behouden blijft bij het navigeren tussen schermen.
+- undo-redo van repo (word een uitdaging)
+heb besloten deze niet te doen. omdat ik al veel tijd heb besteed aan de andere features en ik ook niet een direct beeld bij heb over hoe ik dit zou moeten implementeren. via de repositories. 
+- animated transisties 
+er zijn geen geavenceerde animaties met animationcontrollers of tweens, maar wel animaties zoals dissmisable. maar dat telt niet echt.
+
 
 
 ## packages
@@ -53,3 +57,5 @@ ik zat nog te denken om de id's om te zetten naar een string zodat ik de uuid pa
 
 Ook ben ik wel over de tijd, dit kwam doordat ik onderzoek moest doen over de structuur van de code en packages, bijvoorbeeld,
 hoe werkt bloc, go router, freezed en wat is een repository. Ik had met stage bij yellowQ wel ervaring met repositories. maar werd nooit uitgelegd wat het is en hoe het werkt. aangezien die developer alleen uit nepal kwam. Maar ik hoop dat ik nu de structuur goed heb. anders graag feedback hierover.
+
+ik zat ook nog te denken over hoe ik de data zou syncen tussen repositories, local, memory/remote. maar dat werd niet beschreven de opdracht. dus heb ook niet toegevoed.
