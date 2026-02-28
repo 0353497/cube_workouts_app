@@ -18,11 +18,49 @@ class WorkoutDetailPage extends StatefulWidget {
 }
 
 class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
+  final _nameFormKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  bool _isEditingName = false;
+
   @override
   void initState() {
     super.initState();
 
     context.read<WorkoutBloc>().add(GetWorkout(widget.workoutId));
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  void _startEditingName(String currentName) {
+    setState(() {
+      _isEditingName = true;
+      _nameController.text = currentName;
+    });
+  }
+
+  void _cancelEditingName() {
+    setState(() {
+      _isEditingName = false;
+      _nameController.clear();
+    });
+  }
+
+  void _saveWorkoutName(workout) {
+    if (!_nameFormKey.currentState!.validate()) {
+      return;
+    }
+
+    final updatedName = _nameController.text.trim();
+    context.read<WorkoutBloc>().add(
+      WorkoutUpdated(workout.copyWith(name: updatedName)),
+    );
+    setState(() {
+      _isEditingName = false;
+    });
   }
 
   @override
@@ -71,6 +109,9 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
 
           if (state is WorkoutDetailLoaded) {
             final workout = state.workout;
+            if (!_isEditingName) {
+              _nameController.text = workout.name;
+            }
             return Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
@@ -84,9 +125,52 @@ class _WorkoutDetailPageState extends State<WorkoutDetailPage> {
                         child: WorkoutImg(imagePath: workout.img!),
                       ),
                     ),
-                  Text(
-                    workout.name,
-                    style: Theme.of(context).textTheme.headlineMedium,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        child: _isEditingName
+                            ? Form(
+                                key: _nameFormKey,
+                                child: TextFormField(
+                                  controller: _nameController,
+                                  autofocus: true,
+                                  decoration: const InputDecoration(
+                                    labelText: 'Workout name',
+                                  ),
+                                  validator: (value) {
+                                    if (value == null || value.trim().isEmpty) {
+                                      return 'Name is required';
+                                    }
+                                    return null;
+                                  },
+                                  onFieldSubmitted: (_) {
+                                    _saveWorkoutName(workout);
+                                  },
+                                ),
+                              )
+                            : Text(
+                                workout.name,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium,
+                              ),
+                      ),
+                      if (_isEditingName) ...[
+                        IconButton(
+                          onPressed: () => _saveWorkoutName(workout),
+                          icon: const Icon(Icons.check),
+                        ),
+                        IconButton(
+                          onPressed: _cancelEditingName,
+                          icon: const Icon(Icons.close),
+                        ),
+                      ] else
+                        IconButton(
+                          onPressed: () => _startEditingName(workout.name),
+                          icon: const Icon(Icons.edit),
+                        ),
+                    ],
                   ),
                   const SizedBox(height: 16),
                   Text(

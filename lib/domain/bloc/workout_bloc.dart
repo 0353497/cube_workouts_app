@@ -80,6 +80,11 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
   ) async {
     try {
       await _repository.updateWorkout(event.workout);
+      if (state is WorkoutDetailLoaded &&
+          (state as WorkoutDetailLoaded).workout.id == event.workout.id) {
+        add(GetWorkout(event.workout.id));
+        return;
+      }
       _refreshCurrentList();
     } catch (e) {
       emit(WorkoutError('Failed to update workout: $e'));
