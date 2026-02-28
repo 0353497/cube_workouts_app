@@ -25,7 +25,8 @@ ik heb gekozen voor Hive omdat ik al ervaring heb met Hive vanwege flutter en wo
 
 - do zoekfunctie + 300ms debounce
 heb een zoekfunctie toegevoegd aan de workout lijst, zodat je workouts kan zoeken op naam. Ik heb een debounce van 300ms toegevoegd om te voorkomen dat er te veel zoekopdrachten worden uitgevoerd terwijl de gebruiker typt.
-//todo workout kopieren
+- workout kopieren
+de kopieer functie werkt door de huidige workout te kopieren met een nieuwe id gegeneerd door de datetime, daarna wordt door de lijst van exercises geloopt om daar ook de id te genereren met datetime + index, zodat ze sowiezo uniek zijn. Daarna wordt de gekopieerde workout toegevoegd aan de lijst van workouts in de repository.
 //todo drag en drop in bloc state reorablelistveiw
 //undo-redo van repo (word een uitdaging)
 //animated transisties (goed te doen)
