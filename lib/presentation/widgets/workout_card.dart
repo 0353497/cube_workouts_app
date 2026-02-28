@@ -38,6 +38,7 @@ class WorkoutCard extends StatelessWidget {
                 Text(
                   workout.name,
                   style: Theme.of(context).textTheme.headlineMedium,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -53,6 +54,14 @@ class WorkoutCard extends StatelessWidget {
                           icon: Icon(
                             workout.isFavorite ? Icons.star : Icons.star_border,
                           ),
+                        ),
+                        IconButton(
+                          onPressed: () {
+                            context.read<WorkoutBloc>().add(
+                              WorkoutCopy(workout.id),
+                            );
+                          },
+                          icon: Icon(Icons.copy),
                         ),
                       ],
                     ),

@@ -47,3 +47,9 @@ class WorkoutSearch extends WorkoutEvent {
 
   const WorkoutSearch(this.query);
 }
+
+class WorkoutCopy extends WorkoutEvent {
+  final int workoutId;
+
+  const WorkoutCopy(this.workoutId);
+}

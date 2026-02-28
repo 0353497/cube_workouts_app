@@ -22,6 +22,7 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
     on<ExerciseDeleted>(_onExerciseDeleted);
     on<ToggleFavoriteWorkout>(_onToggleFavoriteWorkout);
     on<GetWorkout>(_getWorkout);
+    on<WorkoutCopy>(_onWorkoutCopy);
   }
 
   Future<void> _onWorkoutsRequested(
@@ -179,6 +180,18 @@ class WorkoutBloc extends Bloc<WorkoutEvent, WorkoutState> {
       emit(WorkoutDetailLoaded(workout));
     } catch (e) {
       emit(WorkoutError('Failed to load workout: $e'));
+    }
+  }
+
+  FutureOr<void> _onWorkoutCopy(
+    WorkoutCopy event,
+    Emitter<WorkoutState> emit,
+  ) async {
+    try {
+      await _repository.deepCopyWorkout(event.workoutId);
+      _refreshCurrentList();
+    } catch (e) {
+      emit(WorkoutError('Failed to copy workout: $e'));
     }
   }
 }

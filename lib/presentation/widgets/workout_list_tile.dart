@@ -30,11 +30,24 @@ class WorkoutListTile extends StatelessWidget {
             pathParameters: {'workoutId': '${workout.id}'},
           );
         },
-        trailing: IconButton(
-          onPressed: () {
-            context.read<WorkoutBloc>().add(ToggleFavoriteWorkout(workout.id));
-          },
-          icon: Icon(workout.isFavorite ? Icons.star : Icons.star_border),
+        trailing: Row(
+          spacing: 12,
+          children: [
+            IconButton(
+              onPressed: () {
+                context.read<WorkoutBloc>().add(
+                  ToggleFavoriteWorkout(workout.id),
+                );
+              },
+              icon: Icon(workout.isFavorite ? Icons.star : Icons.star_border),
+            ),
+            IconButton(
+              onPressed: () {
+                context.read<WorkoutBloc>().add(WorkoutCopy(workout.id));
+              },
+              icon: Icon(Icons.copy),
+            ),
+          ],
         ),
       ),
     );
